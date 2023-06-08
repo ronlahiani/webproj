@@ -7,8 +7,8 @@ import videoURL from "../taskBackGround.mp4";
 
 const Home = () => {
   const { tasks, dispatch } = useTasksContext();
-  const [sortedTasks, setSortedTasks] = useState([...tasks]); // Copy the tasks array
-  
+  const [sortedTasks, setSortedTasks] = useState([]);
+
   useEffect(() => {
     const fetchTasks = async () => {
       const response = await fetch('/api/tasks');
@@ -17,13 +17,15 @@ const Home = () => {
       if (response.ok) {
         dispatch({ type: 'SET_TASKS', payload: json });
       }
-    }
+    };
 
     fetchTasks();
   }, [dispatch]);
 
   useEffect(() => {
-    setSortedTasks([...tasks]); // Update sortedTasks whenever tasks change
+    if (tasks) {
+      setSortedTasks([...tasks]);
+    }
   }, [tasks]);
 
   const handleSortByPriority = () => {
@@ -78,14 +80,13 @@ const Home = () => {
           </div>
         </div>
         <div className="task-list">
-          {sortedTasks &&
-            sortedTasks.map((task) => (
-              <TasksDetails
-                task={task}
-                key={task._id}
-                onDelete={() => handleDeleteTask(task._id)}
-              />
-            ))}
+          {sortedTasks.map((task) => (
+            <TasksDetails
+              task={task}
+              key={task._id}
+              onDelete={() => handleDeleteTask(task._id)}
+            />
+          ))}
         </div>
       </div>
       <TaskForm />
