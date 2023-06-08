@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import videoURL from '../backGroundGiff.mp4';
+import videoURL from '../miniuinim.mp4';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -56,6 +56,7 @@ const Login = () => {
       {error && <div>{error}</div>}
       {!isPending && !error && !user && (
         <form className="login-form" onSubmit={handleSubmit}>
+          <div className="loginDeatils">
           <h2>Login</h2>
           <input
             type="email"
@@ -71,6 +72,7 @@ const Login = () => {
           />
           {error && <div className="error-label">{error}</div>}
           <button id="login" type="submit">Login</button>
+          </div>
         </form>
       )}
     </div>
