@@ -243,7 +243,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background: url('backGroundGiff.mp4') no-repeat center center fixed;
   background-size: cover;
@@ -263,7 +263,6 @@ html, body {
 .login-form {
   background-color: rgba(255, 255, 255, 0.8); /* Set the background color with opacity */
   padding: 20px;
-
   padding: 150px;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
