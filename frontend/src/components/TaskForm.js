@@ -52,11 +52,10 @@ const TaskForm = () => {
         <form  className="create" onSubmit={handleSubmit}>
         <h2>Add New Task </h2>
         <label >Task name: </label>
-        <input
-        type="text"
-         onChange={(e)=> setTitle(e.target.value)}
-         value = {title}
-        />
+        <textarea
+              onChange={(e) => setTitle(e.target.value)}
+               value={title}
+        ></textarea>
          <label >Finish date: </label>
          <DatePicker
         selected={finishDate}
@@ -74,20 +73,23 @@ const TaskForm = () => {
         }}
         value={finishDate ? format(finishDate, 'dd.MM.yyyy') : ''}
       />
-        <label >Important Level: </label>
-        <input
-        type="text"
-         onChange={(e)=> setImportantLevel(e.target.value)}
-         value = {importantLevel}
-        />
-        <label >Type of task: </label>
-        <input
-        type="text"
-         onChange={(e)=> setType(e.target.value)}
-         value = {type}
-        />
+       <div className="ImportantLevel">
+        <label>Important Level:</label>
+        <select className="combobox" onChange={(e) => setImportantLevel(e.target.value)} value={importantLevel}>
+        <option value="low">Low</option>
+        <option value="middle">Middle</option>
+       <option value="high">High</option>
+       </select>
+       </div>
+       <div className="Type">
+       <label>Type of Task:</label>
+       <select className="combobox" onChange={(e) => setType(e.target.value)} value={type}>
+       <option value="business">Business</option>
+       <option value="personal">Personal</option>
+       </select>
+       </div>
 
-        <button>Add Task</button>
+        <button className='add'>Add Task</button>
         {error && <div className="error">{error}</div>}
     </form>
      );

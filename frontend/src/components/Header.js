@@ -25,7 +25,7 @@ function Header() {
           </Nav>
           <Nav>
             <a></a>
-            <Nav.Link eventKey={2} href="/login">
+            <Nav.Link eventKey={2} href="/">
               Logout
             </Nav.Link>
           </Nav>

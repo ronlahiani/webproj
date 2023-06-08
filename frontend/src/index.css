@@ -54,16 +54,17 @@ a {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.task-details h4 {
+.task-details h3 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
-  color: var(--primary-color);
+  color:#f1dede;
+  
 }
 
 .task-details p {
   margin: 0;
   font-size: 0.9em;
-  color: var(--text-secondary-color);
+
 }
 
 .task-details span {
@@ -76,55 +77,29 @@ a {
   padding: 6px;
   border-radius: 50%;
   color: var(--text-primary-color);
+  font:bold;
 }
 .task-details {
-  width: 100%;
-  padding: 20px;
-  background-color: #f2f2f2;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  --c: #1095c1; /* the color */
-  --b: .1em;    /* border length*/
-  --d: 20px;    /* the cube depth */
-  
-  --_s: calc(var(--d) + var(--b));
-  
-  color: var(--c);
-  border: solid #0000;
-  border-width: var(--b) var(--b) var(--_s) var(--_s);
-  background:
-    conic-gradient(at left var(--d)  bottom var(--d),
-      #0000 90deg, rgb(255 255 255 /0.3) 0 225deg,rgb(255 255 255 /0.6) 0) border-box,
-    conic-gradient(at left var(--_s) bottom var(--_s),
-      #0000 90deg,var(--c) 0) 0 100%/calc(100% - var(--b)) calc(100% - var(--b))  border-box;
-  transform: translate(calc(var(--d)/-1),var(--d));
-  clip-path: 
-    polygon(
-     var(--d) 0%, 
-     var(--d) 0%, 
-     100% 0%, 
-     100% calc(100% - var(--d)),
-     100% calc(100% - var(--d)),
-     var(--d) calc(100% - var(--d))
-    );
-  transition: 0.5s;
+  padding: 10px 16px;
+  margin: 20px 0;
+  font:bold;
 }
 
 .task-details:hover {
 
-  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+  background-color: rgb(215, 173, 201);
+  font:bold;
 }
 
 .task-details.marked {
-  background-color: lightblue;
+  background-color: rgb(255, 25, 0);
   border-color: red;
 }
 
 
 .task-details.deleted {
   opacity: 0.5;
+  font:bold;
 }
 
 .task-details.marked h3 {
@@ -155,7 +130,6 @@ input {
   box-sizing: border-box;
 }
 #login:hover{
-  margin-right:200px;
   background-color: #45a049;
 }
 form button {
@@ -235,16 +209,24 @@ label {
 .properties {
   display: flex;
   flex-direction: column;
+  border-radius: 15px;
+  border-color: #f1356d;
 }
 
 .properties p {
   display: flex;
   align-items: center;
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-weight: bold;
+ 
 }
 
 .properties label {
   font-weight: bold;
   margin-right: 5px;
+  color: #e2b9c5;
+  font:bold 5px;
 }
 .tasks h1{
   width:300px;
@@ -252,21 +234,23 @@ label {
   border-radius: 30px;
   padding: 10px;
 }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   z-index: -1;
-  background-image: url("https://d3m9l0v76dty0.cloudfront.net/system/photos/7600630/original/a6a6c571e13858f913f1d0e31c72d739.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
   background-image: url("https://previews.123rf.com/images/sanek13744/sanek137441802/sanek13744180200171/95815696-to-do-list-seamless-pattern-background-business-flat-vector-illustration-checklist-task-list.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 
 }
+
 .login-form {
   background-color: #f2f2f2;
   padding: 150px;
@@ -283,3 +267,27 @@ input {
   font-family: "Quicksand";
   color: #333;
 }
+#login {
+  display: block;
+  margin: 0 auto;
+}
+.add{
+  display: block;
+  margin-left: 50px;
+  background-color:#f1356d
+}
+.add:hover{
+  background-color: #85194f;
+}
+.Type {
+  margin-top: 80px;
+  margin-bottom: 50px;
+
+}
+.combobox  {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 8px;
+}
+
