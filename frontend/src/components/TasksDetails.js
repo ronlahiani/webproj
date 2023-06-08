@@ -16,7 +16,7 @@ const TasksDetailes = ({task}) => {
         const json = await response.json()
         if(response.ok){
           dispatch({type:'DELETE_TASK',payload:json})
-        }
+        } 
     }
 
     return (

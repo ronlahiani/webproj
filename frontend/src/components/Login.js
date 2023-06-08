@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import videoURL from '../backGroundGiff.mp4';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -48,6 +49,9 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <video autoPlay loop muted className="background-video">
+        <source src={process.env.PUBLIC_URL + videoURL} type="video/mp4" />
+      </video>
       {isPending && <div>Loading...</div>}
       {error && <div>{error}</div>}
       {!isPending && !error && !user && (
