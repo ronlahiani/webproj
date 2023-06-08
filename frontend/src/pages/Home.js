@@ -1,38 +1,96 @@
-import { useEffect, useState } from "react"
-import { useTasksContext } from "../hooks/useTasksContext"
+import { useEffect, useState } from "react";
+import { useTasksContext } from "../hooks/useTasksContext";
 // components
-import TasksDetails from '../components/TasksDetails'
+import TasksDetails from "../components/TasksDetails";
+import TaskForm from "../components/TaskForm";
+import videoURL from "../taskBackGround.mp4";
 
-import TaskForm from "../components/TaskForm"
 const Home = () => {
-  const {tasks,dispatch} = useTasksContext()
+  const { tasks, dispatch } = useTasksContext();
+  const [sortedTasks, setSortedTasks] = useState([...tasks]); // Copy the tasks array
   
   useEffect(() => {
-    const fetchWorkouts = async () => {
-      const response = await fetch('/api/tasks')
-      const json = await response.json()
+    const fetchTasks = async () => {
+      const response = await fetch('/api/tasks');
+      const json = await response.json();
 
       if (response.ok) {
-        dispatch({type:'SET_TASKS',payload:json})
+        dispatch({ type: 'SET_TASKS', payload: json });
       }
     }
 
-    fetchWorkouts()
-  }, [dispatch])
+    fetchTasks();
+  }, [dispatch]);
+
+  useEffect(() => {
+    setSortedTasks([...tasks]); // Update sortedTasks whenever tasks change
+  }, [tasks]);
+
+  const handleSortByPriority = () => {
+    const sortedByPriority = [...sortedTasks].sort((a, b) => {
+      const priorityA = a.importantLevel.toLowerCase();
+      const priorityB = b.importantLevel.toLowerCase();
+
+      if (priorityA === "high") {
+        return -1;
+      }
+      if (priorityB === "high") {
+        return 1;
+      }
+      if (priorityA === "middle" && priorityB === "low") {
+        return -1;
+      }
+      if (priorityA === "low" && priorityB === "middle") {
+        return 1;
+      }
+      return 0;
+    });
+
+    setSortedTasks(sortedByPriority);
+  };
+
+  const handleSortByFinalDate = () => {
+    const sortedByFinalDate = [...sortedTasks].sort((a, b) => {
+      const dateA = new Date(a.finishDate);
+      const dateB = new Date(b.finishDate);
+
+      return dateA - dateB;
+    });
+
+    setSortedTasks(sortedByFinalDate);
+  };
+
+  const handleDeleteTask = (taskId) => {
+    dispatch({ type: 'DELETE_TASK', payload: taskId });
+  };
+
   return (
     <div className="home">
+      <video autoPlay loop muted className="background-video">
+        <source src={process.env.PUBLIC_URL + videoURL} type="video/mp4" />
+      </video>
       <div className="tasks">
-        <h1>My Tasks</h1>
+        <div className="task-header">
+          <h1>My Tasks</h1>
+          <div className="sort-buttons">
+            <button onClick={handleSortByPriority}>Sort by Priority</button>
+            <button onClick={handleSortByFinalDate}>Sort by Final Date</button>
+          </div>
+        </div>
         <div className="task-list">
-          {tasks &&
-            tasks.map((task) => (
-              <TasksDetails task={task} key={task._id} />
+          {sortedTasks &&
+            sortedTasks.map((task) => (
+              <TasksDetails
+                task={task}
+                key={task._id}
+                onDelete={() => handleDeleteTask(task._id)}
+              />
             ))}
         </div>
       </div>
       <TaskForm />
     </div>
   );
-  
-            }
-export default Home
+};
+
+export default Home;

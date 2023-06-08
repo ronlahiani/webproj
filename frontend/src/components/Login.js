@@ -53,8 +53,7 @@ const Login = () => {
         <source src={process.env.PUBLIC_URL + videoURL} type="video/mp4" />
       </video>
       {isPending && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {!isPending && !error && !user && (
+      {!isPending && (!error||error=="Could not fetch the data for that resource!") && !user && (
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="loginDeatils">
           <h2>Login</h2>
@@ -70,9 +69,10 @@ const Login = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-          {error && <div className="error-label">{error}</div>}
           <button id="login" type="submit">Login</button>
           </div>
+          {error=="Could not fetch the data for that resource!" && <div className="error-label">{"Wrong email or Password please try again!"}</div>}
+        
         </form>
       )}
     </div>

@@ -57,13 +57,14 @@ a {
 .task-details h3 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
-  color:#f1dede;
+  color:#f134b5;
   
 }
 
 .task-details p {
   margin: 0;
   font-size: 0.9em;
+  font-weight: bold;
 
 }
 
@@ -77,17 +78,18 @@ a {
   padding: 6px;
   border-radius: 50%;
   color: var(--text-primary-color);
-  font:bold;
+  
 }
 .task-details {
   padding: 10px 16px;
   margin: 20px 0;
-  font:bold;
+  font-weight: bold;
+  
 }
 
 .task-details:hover {
 
-  background-color: rgb(215, 173, 201);
+  background-color: rgb(248, 255, 57);
   font:bold;
 }
 
@@ -140,6 +142,19 @@ form button {
   border-radius: 30px;
   cursor: pointer;
   font-weight: 600;
+}
+ button {
+  color: #fff;
+  background: var(--primary-color);
+  border: 0;
+  background-color: #ff2465;
+  padding: 12px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+}
+ button:hover{
+  background-color: #c3335e;
 }
 
 div.error {
@@ -225,7 +240,7 @@ label {
 .properties label {
   font-weight: bold;
   margin-right: 5px;
-  color: #e2b9c5;
+  color: #ff2465;
   font:bold 5px;
 }
 .tasks h1{
@@ -248,10 +263,35 @@ html, body {
   background: url('miniuinim.mp4') no-repeat center center fixed;
   background-size: cover;
   background-repeat: no-repeat;
-  
-
 }
 
+.error-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: red;
+  padding-top: 20px;
+ 
+}
+.home .background-video{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  margin-top: 80px;
+}
+.tasks h1{
+  font-weight: bold;
+  color: #d94471;
+  border-radius: 10px var(--background-color);
+  font:bold 5px;
+  margin: 0 auto 5px; /* Set margin to auto for horizontal centering */
+  text-align: center;
+}
 .background-video {
   position: absolute;
   top: 0;
@@ -273,12 +313,17 @@ html, body {
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   width: 500px;
-  margin-top: 220px;
+  margin: 220px auto 0;
+
 }
 
 
 
+
+
 input {
+  justify-content: center;
+  align-items: center;
   width:auto;
   padding: 10px;
   margin-bottom: 20px;
@@ -287,6 +332,7 @@ input {
   font-family: "Quicksand";
   color: #333;
 }
+
 #login {
   display: block;
   margin: 0 auto;
@@ -311,3 +357,7 @@ input {
   padding: 8px;
 }
 
+.task-list {
+  height: 500px; /* Set the desired height for the task list container */
+  overflow-y: scroll; /* Enable vertical scrolling */
+}
