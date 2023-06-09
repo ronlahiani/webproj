@@ -94,8 +94,8 @@ a {
 }
 
 .task-details.marked {
-  background-color: rgb(255, 25, 0);
-  border-color: red;
+  background-color: rgb(222, 150, 141);
+  border-color: rgb(255, 58, 58);
 }
 
 
