@@ -9,8 +9,8 @@ const TaskForm = () => {
 
     const {dispatch} = useTasksContext();
     const [title,setTitle] = useState('');
-    const [importantLevel,setImportantLevel] = useState('');
-    const [type,setType] = useState('');
+    const [importantLevel,setImportantLevel] = useState('low');
+    const [type,setType] = useState('personal');
     const [error,setError] = useState('');
     const [finishDate, setFinishDate] = useState(null);
     const today = new Date();
@@ -84,8 +84,8 @@ const TaskForm = () => {
        <div className="Type">
        <label>Type of Task:</label>
        <select className="combobox" onChange={(e) => setType(e.target.value)} value={type}>
-       <option value="business">Business</option>
        <option value="personal">Personal</option>
+       <option value="business">Business</option>
        </select>
        </div>
 
