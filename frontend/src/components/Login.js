@@ -22,13 +22,13 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsPending(true);
-
+  
     try {
       const response = await fetch(`/api/users?email=${email}&password=${password}`);
       if (!response.ok) {
         throw new Error('Could not fetch the data for that resource!');
       }
-
+  
       const data = await response.json();
       setUser(data);
       setIsPending(false);
@@ -38,17 +38,24 @@ const Login = () => {
       setError(error.message);
     }
   };
+  
 
   useEffect(() => {
     if (user) {
       // Handle successful login
       console.log('Login successful');
-  
-      // Send data to /home route
-      const data = { key: email };
-      navigate('/home', { state: data });
+      console.log(user.type);
+      if (user.type === 'Manager') {
+        // Send data to /worker route
+        navigate('/worker');
+      } else {
+        // Send data to /home route
+        const data = { key: email };
+        navigate('/home', { state: data });
+      }
     }
   }, [user, navigate]);
+  
 
   return (
     <div className="login-container">
