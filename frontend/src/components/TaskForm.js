@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const TaskForm = () => {
+const TaskForm = ({email}) => {
 
     const {dispatch} = useTasksContext();
     const [title,setTitle] = useState('');
@@ -14,11 +14,12 @@ const TaskForm = () => {
     const [error,setError] = useState('');
     const [finishDate, setFinishDate] = useState(null);
     const today = new Date();
+    const name=email;
 
     const handleSubmit = async (e) => {
         e.preventDefault()
     
-        const task = {title,finishDate,importantLevel,type}
+        const task = {title,finishDate,importantLevel,type,name}
         const response = await fetch('/api/tasks', {
           method: 'POST',
           body: JSON.stringify(task),

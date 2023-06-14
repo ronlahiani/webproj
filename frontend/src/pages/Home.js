@@ -4,14 +4,19 @@ import { useTasksContext } from "../hooks/useTasksContext";
 import TasksDetails from "../components/TasksDetails";
 import TaskForm from "../components/TaskForm";
 import videoURL from "../taskBackGround.mp4";
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   const { tasks, dispatch } = useTasksContext();
   const [sortedTasks, setSortedTasks] = useState([]);
+  const location = useLocation();
+  const data = location.state;
+  const email=data.key;
+  
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch('/api/tasks');
+      const response = await fetch(`/api/tasks/${email}`);
       const json = await response.json();
 
       if (response.ok) {
@@ -89,7 +94,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <TaskForm />
+      <TaskForm email= {email}/>
     </div>
   );
 };

@@ -18,6 +18,9 @@ const tasktSchema = new Schema({
     type:{
         type: String,
         required: true
+    },
+    name:{
+        type:String
     }
 //timestamps -write when the object created.
 },{timestamps:true})

@@ -43,7 +43,10 @@ const Login = () => {
     if (user) {
       // Handle successful login
       console.log('Login successful');
-      navigate('/home');
+  
+      // Send data to /home route
+      const data = { key: email };
+      navigate('/home', { state: data });
     }
   }, [user, navigate]);
 
