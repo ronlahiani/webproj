@@ -49,7 +49,8 @@ const Login = () => {
       console.log(user.type);
       if (user.type === 'Manager') {
         // Send data to /worker route
-        navigate('/worker');
+        const data = { key: email };
+        navigate('/worker',{ state: data });
       } else {
         // Send data to /home route
         const data = { key: email };

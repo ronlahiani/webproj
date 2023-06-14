@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 const WorkerScreen = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const data = location.state;
+  const emailM=data.key;
   useEffect(() => {
     getUsers();
   }, []);
@@ -20,17 +22,23 @@ const WorkerScreen = () => {
     }
   };
 
-  const handleUserClick = (userId) => {
-    navigate(`/home/${userId}`);
+  const handleUserClick = ( email) => {
+    console.log(email);
+    const data = { key: email };
+    navigate('/home',  { state: data });
   };
 
   return (
     <div>
       <h1>Worker Screen</h1>
-      {users.map((user) => (
-        <button key={user._id} onClick={() => handleUserClick(user._id)}>
-          {user.name}
+      <button onClick={() => handleUserClick(emailM)}>
+       my Tasks
         </button>
+      {users.map((user) => (
+        <button key={user._id} onClick={() => handleUserClick(user.name)}>
+        {user.name}
+      </button>
+      
       ))}
     </div>
   );
