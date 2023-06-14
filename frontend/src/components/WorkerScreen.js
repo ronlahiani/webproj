@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import videoURL from "../WorkerBackGround.mp4";
 const WorkerScreen = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -29,18 +30,24 @@ const WorkerScreen = () => {
   };
 
   return (
-    <div>
-      <h1>Worker Screen</h1>
-      <button onClick={() => handleUserClick(emailM)}>
-       my Tasks
-        </button>
+    <div className="worker-screen">
+    <video autoPlay loop muted className="background-video">
+      <source src={process.env.PUBLIC_URL + videoURL} type="video/mp4" />
+    </video>
+    <h1>Worker Screen</h1>
+    <button onClick={() => handleUserClick(emailM)}>My Tasks</button>
+    <div className="users-container">
       {users.map((user) => (
         <button key={user._id} onClick={() => handleUserClick(user.name)}>
-        {user.name}
-      </button>
-      
+          {user.name}
+        </button>
       ))}
     </div>
+  </div>
+  
+
+
+  
   );
 };
 
