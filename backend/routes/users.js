@@ -8,6 +8,6 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 
-router.get("/:email", getUser);
 router.get("/", getUsers);
+router.get("/user", getUser);
 module.exports = router;

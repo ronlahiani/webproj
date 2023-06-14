@@ -24,7 +24,7 @@ const Login = () => {
     setIsPending(true);
   
     try {
-      const response = await fetch(`/api/users?email=${email}&password=${password}`);
+      const response = await fetch(`/api/users/user?email=${email}&password=${password}`);
       if (!response.ok) {
         throw new Error('Could not fetch the data for that resource!');
       }
@@ -39,9 +39,11 @@ const Login = () => {
     }
   };
   
+  
 
   useEffect(() => {
     if (user) {
+      console.log(user);
       // Handle successful login
       console.log('Login successful');
       console.log(user.type);

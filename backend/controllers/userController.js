@@ -15,9 +15,10 @@ const getUser = async (req, res) => {
     if (user.password !== password.toString()) {
       return res.status(401).json({ message: 'Incorrect password' });
     }
-
+    console.log(user);
     // Authentication successful
     res.status(200).json(user); // Return the entire user object
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
