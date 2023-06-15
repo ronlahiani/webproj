@@ -49,11 +49,11 @@ const Login = () => {
       console.log(user.type);
       if (user.type === 'Manager') {
         // Send data to /worker route
-        const data = { key: email };
-        navigate('/worker',{ state: data });
+        const data = { key: email, isManager: true ,managerTasks:true }; // Add isManager property
+        navigate('/worker', { state: data });
       } else {
         // Send data to /home route
-        const data = { key: email };
+        const data = { key: email, isManager: false ,managerTasks:false }; // Add isManager property
         navigate('/home', { state: data });
       }
     }

@@ -25,9 +25,14 @@ const WorkerScreen = () => {
 
   const handleUserClick = ( email) => {
     console.log(email);
-    const data = { key: email };
-    navigate('/home',  { state: data });
+    const data = { key: email,isManager: true , managerTasks:false};
+    navigate('/home',  { state: data} );
   };
+  const handleUserClickManager = (email)=>{
+    console.log(email);
+    const data = { key: email,isManager: true , managerTasks:true};
+    navigate('/home',  { state: data} );
+  }
 
   return (
     <div className="worker-screen">
@@ -35,7 +40,7 @@ const WorkerScreen = () => {
       <source src={process.env.PUBLIC_URL + videoURL} type="video/mp4" />
     </video>
     <h1>Worker Screen</h1>
-    <button onClick={() => handleUserClick(emailM)}>My Tasks</button>
+    <button onClick={() => handleUserClickManager(emailM)}>My Tasks</button>
     <div className="users-container">
       {users.map((user) => (
         <button key={user._id} onClick={() => handleUserClick(user.name)}>

@@ -4,15 +4,17 @@ import { useTasksContext } from "../hooks/useTasksContext";
 import TasksDetails from "../components/TasksDetails";
 import TaskForm from "../components/TaskForm";
 import videoURL from "../taskBackGround.mp4";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { tasks, dispatch } = useTasksContext();
   const [sortedTasks, setSortedTasks] = useState([]);
   const location = useLocation();
+  const navigate = useNavigate();
   const data = location.state;
-  const email=data.key;
-  
+  const [isManager, setIsManager] = useState(false);
+  const email = data.key;
+  const managerTasks = data.managerTasks
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -20,12 +22,16 @@ const Home = () => {
       const json = await response.json();
 
       if (response.ok) {
-        dispatch({ type: 'SET_TASKS', payload: json });
+        dispatch({ type: "SET_TASKS", payload: json });
       }
     };
 
     fetchTasks();
-  }, [dispatch]);
+  }, [dispatch, email]);
+
+  useEffect(() => {
+    setIsManager(data.isManager)
+  }, [data.isManager]);
 
   useEffect(() => {
     if (tasks) {
@@ -68,7 +74,11 @@ const Home = () => {
   };
 
   const handleDeleteTask = (taskId) => {
-    dispatch({ type: 'DELETE_TASK', payload: taskId });
+    dispatch({ type: "DELETE_TASK", payload: taskId });
+  };
+
+  const handleBackToMenu = () => {
+    navigate("/worker", { state: { key: email } });
   };
 
   return (
@@ -80,6 +90,14 @@ const Home = () => {
         <div className="task-header">
           <h1>My Tasks</h1>
           <div className="sort-buttons">
+            {isManager && (
+              <button
+                className="material-symbols-outlined"
+                onClick={handleBackToMenu}
+              >
+                home
+              </button>
+            )}
             <button onClick={handleSortByPriority}>Sort by Priority</button>
             <button onClick={handleSortByFinalDate}>Sort by Final Date</button>
           </div>
@@ -88,13 +106,15 @@ const Home = () => {
           {sortedTasks.map((task) => (
             <TasksDetails
               task={task}
+              isManager={isManager}
+              managerTasks={data.managerTasks}
               key={task._id}
               onDelete={() => handleDeleteTask(task._id)}
             />
           ))}
         </div>
       </div>
-      <TaskForm email= {email}/>
+      <TaskForm email={email} />
     </div>
   );
 };

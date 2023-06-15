@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {useTasksContext} from "../hooks/useTasksContext"
-const TasksDetailes = ({task}) => {
+const TasksDetailes = ({task,isManager,managerTasks}) => {
     const {dispatch} = useTasksContext();
     const [isMarked, setIsMarked] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
+    const [isBuissnessAndManager, setIsBuissnessAndManager] = useState(true)
+
+
+    useEffect(() => {
+       if ((task.type === 'personal' && isManager && !managerTasks)){
+        setIsBuissnessAndManager(false)
+      }
+    }, [isManager]);
+
 
     const handleMark = () => {
         setIsMarked(!isMarked);
@@ -31,7 +40,7 @@ const TasksDetailes = ({task}) => {
           <p><label>Important level:</label> {task.importantLevel}</p>
           <p><label>Type:</label> {task.type}</p>
         </div>
-        {isMarked && !isDeleted && (
+        {isMarked && !isDeleted && isBuissnessAndManager && (
           <span className="material-symbols-outlined delete-button" onClick={handleClick}>
             Delete
           </span>
