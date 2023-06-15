@@ -91,7 +91,7 @@ const TaskForm = ({email}) => {
        </div>
 
         <button className='add'>Add Task</button>
-        {error && <div className="error">{error}</div>}
+        {error && <div className="error">{"You must fill in all fields in order to add a task "}</div>}
     </form>
      );
 }
