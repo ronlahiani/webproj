@@ -14,23 +14,38 @@ const Home = () => {
   const data = location.state;
   const [isManager, setIsManager] = useState(false);
   const email = data.key;
-  const managerTasks = data.managerTasks
+  const managerTasks = data.managerTasks;
+
+  // Extract the name from the email prop
+  const name = ()=>{
+    if (managerTasks)
+    return data.emailManager.split("@")[0];
+    else{
+      return email.split("@")[0];
+    }
+  }
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch(`/api/tasks/${email}`);
+      let response;
+      if (managerTasks) {
+        response = await fetch(`/api/tasks/${data.emailManager}`);
+      } else {
+        response = await fetch(`/api/tasks/${email}`);
+      }
       const json = await response.json();
-
+  
       if (response.ok) {
         dispatch({ type: "SET_TASKS", payload: json });
       }
     };
-
+  
     fetchTasks();
-  }, [dispatch, email]);
+  }, [dispatch, email, managerTasks, data.emailManager]);
+  
 
   useEffect(() => {
-    setIsManager(data.isManager)
+    setIsManager(data.isManager);
   }, [data.isManager]);
 
   useEffect(() => {
@@ -78,7 +93,7 @@ const Home = () => {
   };
 
   const handleBackToMenu = () => {
-    navigate("/worker", { state: { key: email } });
+    navigate("/worker", { state: { key: data.emailManager } });
   };
 
   return (
@@ -88,7 +103,7 @@ const Home = () => {
       </video>
       <div className="tasks">
         <div className="task-header">
-          <h1>My Tasks</h1>
+          <h1>{name()+"'s"+ " "+'Tasks'}</h1>
           <div className="sort-buttons">
             {isManager && (
               <button

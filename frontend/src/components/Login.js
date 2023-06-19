@@ -43,17 +43,15 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       // Handle successful login
       console.log('Login successful');
-      console.log(user.type);
       if (user.type === 'Manager') {
         // Send data to /worker route
-        const data = { key: email, isManager: true ,managerTasks:true }; // Add isManager property
+        const data = { key: email, isManager: true ,managerTasks:true,emailManager:email}; // Add isManager property
         navigate('/worker', { state: data });
       } else {
         // Send data to /home route
-        const data = { key: email, isManager: false ,managerTasks:false }; // Add isManager property
+        const data = { key: email, isManager: false ,managerTasks:false,emailManager:''}; // Add isManager property
         navigate('/home', { state: data });
       }
     }

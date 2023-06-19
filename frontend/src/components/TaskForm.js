@@ -36,8 +36,8 @@ const TaskForm = ({email}) => {
           setError(null)
           setTitle('')
           setFinishDate('')
-          setImportantLevel('')
-          setType('')
+          setImportantLevel('low')
+          setType('personal')
 
           console.log('new task added:', json)
           //rendering it in the home

@@ -7,9 +7,12 @@ const WorkerScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
-  const emailM=data.key;
+  const [emailM,setEmailM] = useState(data.key)
   useEffect(() => {
     getUsers();
+    if(data.emailManager){
+      setEmailM(data.emailManager)
+    }
   }, []);
 
   const getUsers = async () => {
@@ -23,14 +26,12 @@ const WorkerScreen = () => {
     }
   };
 
-  const handleUserClick = ( email) => {
-    console.log(email);
-    const data = { key: email,isManager: true , managerTasks:false};
+  const handleUserClick = ( email,emailM) => {
+    const data = { key: email,isManager: true , managerTasks:false,emailManager:emailM};
     navigate('/home',  { state: data} );
   };
   const handleUserClickManager = (email)=>{
-    console.log(email);
-    const data = { key: email,isManager: true , managerTasks:true};
+    const data = { key: email,isManager: true , managerTasks:true,emailManager:emailM};
     navigate('/home',  { state: data} );
   }
 
@@ -39,20 +40,16 @@ const WorkerScreen = () => {
     <video autoPlay loop muted className="background-video">
       <source src={process.env.PUBLIC_URL + videoURL} type="video/mp4" />
     </video>
-    <h1>Worker Screen</h1>
+    <h1>Manager Screen</h1>
     <button onClick={() => handleUserClickManager(emailM)}>My Tasks</button>
     <div className="users-container">
       {users.map((user) => (
-        <button key={user._id} onClick={() => handleUserClick(user.name)}>
+        <button key={user._id} onClick={() => handleUserClick(user.name,emailM)}>
           {user.name}
         </button>
       ))}
     </div>
   </div>
-  
-
-
-  
   );
 };
 
