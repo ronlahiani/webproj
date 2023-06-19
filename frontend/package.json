@@ -21,6 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "NODE_OPTIONS=--max-old-space-size=4096 npm run build && npm start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
