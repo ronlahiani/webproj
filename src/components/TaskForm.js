@@ -5,20 +5,21 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const TaskForm = () => {
+const TaskForm = ({email}) => {
 
     const {dispatch} = useTasksContext();
     const [title,setTitle] = useState('');
-    const [importantLevel,setImportantLevel] = useState('');
-    const [type,setType] = useState('');
+    const [importantLevel,setImportantLevel] = useState('low');
+    const [type,setType] = useState('personal');
     const [error,setError] = useState('');
     const [finishDate, setFinishDate] = useState(null);
     const today = new Date();
+    const name=email;
 
     const handleSubmit = async (e) => {
         e.preventDefault()
     
-        const task = {title,finishDate,importantLevel,type}
+        const task = {title,finishDate,importantLevel,type,name}
         const response = await fetch('/api/tasks', {
           method: 'POST',
           body: JSON.stringify(task),
@@ -35,8 +36,8 @@ const TaskForm = () => {
           setError(null)
           setTitle('')
           setFinishDate('')
-          setImportantLevel('')
-          setType('')
+          setImportantLevel('low')
+          setType('personal')
 
           console.log('new task added:', json)
           //rendering it in the home
@@ -52,11 +53,10 @@ const TaskForm = () => {
         <form  className="create" onSubmit={handleSubmit}>
         <h2>Add New Task </h2>
         <label >Task name: </label>
-        <input
-        type="text"
-         onChange={(e)=> setTitle(e.target.value)}
-         value = {title}
-        />
+        <textarea
+              onChange={(e) => setTitle(e.target.value)}
+               value={title}
+        ></textarea>
          <label >Finish date: </label>
          <DatePicker
         selected={finishDate}
@@ -74,21 +74,24 @@ const TaskForm = () => {
         }}
         value={finishDate ? format(finishDate, 'dd.MM.yyyy') : ''}
       />
-        <label >Important Level: </label>
-        <input
-        type="text"
-         onChange={(e)=> setImportantLevel(e.target.value)}
-         value = {importantLevel}
-        />
-        <label >Type of task: </label>
-        <input
-        type="text"
-         onChange={(e)=> setType(e.target.value)}
-         value = {type}
-        />
+       <div className="ImportantLevel">
+        <label>Important Level:</label>
+        <select className="combobox" onChange={(e) => setImportantLevel(e.target.value)} value={importantLevel}>
+        <option value="low">Low</option>
+        <option value="middle">Middle</option>
+       <option value="high">High</option>
+       </select>
+       </div>
+       <div className="Type">
+       <label>Type of Task:</label>
+       <select className="combobox" onChange={(e) => setType(e.target.value)} value={type}>
+       <option value="personal">Personal</option>
+       <option value="business">Business</option>
+       </select>
+       </div>
 
-        <button>Add Task</button>
-        {error && <div className="error">{error}</div>}
+        <button className='add'>Add Task</button>
+        {error && <div className="error">{"You must fill in all fields in order to add a task "}</div>}
     </form>
      );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import videoURL from '../miniuinim.mp4';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,13 +22,13 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsPending(true);
-
+  
     try {
-      const response = await fetch(`/api/users?email=${email}&password=${password}`);
+      const response = await fetch(`/api/users/user?email=${email}&password=${password}`);
       if (!response.ok) {
         throw new Error('Could not fetch the data for that resource!');
       }
-
+  
       const data = await response.json();
       setUser(data);
       setIsPending(false);
@@ -37,21 +38,35 @@ const Login = () => {
       setError(error.message);
     }
   };
+  
+  
 
   useEffect(() => {
     if (user) {
       // Handle successful login
       console.log('Login successful');
-      navigate('/home');
+      if (user.type === 'Manager') {
+        // Send data to /worker route
+        const data = { key: email, isManager: true ,managerTasks:true,emailManager:email}; // Add isManager property
+        navigate('/worker', { state: data });
+      } else {
+        // Send data to /home route
+        const data = { key: email, isManager: false ,managerTasks:false,emailManager:''}; // Add isManager property
+        navigate('/home', { state: data });
+      }
     }
   }, [user, navigate]);
+  
 
   return (
     <div className="login-container">
+      <video autoPlay loop muted className="background-video">
+        <source src={process.env.PUBLIC_URL + videoURL} type="video/mp4" />
+      </video>
       {isPending && <div>Loading...</div>}
-      {error && <div>{error}</div>}
-      {!isPending && !error && !user && (
+      {!isPending && (!error||error=="Could not fetch the data for that resource!") && !user && (
         <form className="login-form" onSubmit={handleSubmit}>
+          <div className="loginDeatils">
           <h2>Login</h2>
           <input
             type="email"
@@ -65,8 +80,10 @@ const Login = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-          {error && <div className="error-label">{error}</div>}
           <button id="login" type="submit">Login</button>
+          </div>
+          {error=="Could not fetch the data for that resource!" && <div className="error-label">{"Wrong email or Password please try again!"}</div>}
+        
         </form>
       )}
     </div>
