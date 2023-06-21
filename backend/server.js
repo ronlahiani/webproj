@@ -23,7 +23,7 @@ app.use((req,res,next)=>{
 })
 
 //connect to db
-mongoose.connect(process.env.MONGO_URI).then(()=>{
+mongoose.connect('mongodb+srv://ron290596:Aa102030aa@cluster0.ucr0nbi.mongodb.net/?retryWrites=true&w=majority').then(()=>{
     //listen for requests
     app.listen(process.env.PORT,()=>{
     console.log(`connected to db && Listening on port ${process.env.PORT}`);
